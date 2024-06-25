@@ -8,7 +8,7 @@ import com.termux.shared.termux.TermuxConstants;
 import com.termux.shared.termux.crash.TermuxCrashUtils;
 import com.termux.shared.termux.settings.preferences.TermuxTaskerAppSharedPreferences;
 
-public class TermuxTaskerApplication extends Application {
+public class TermuxTaskerApplication extends TermuxApplication {
 
     public void onCreate() {
         super.onCreate();
