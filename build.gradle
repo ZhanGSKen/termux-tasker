@@ -11,10 +11,16 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
-        mavenCentral()
-        mavenLocal()
+        maven { url "https://winboll.cc/nexus/repository/maven-public/" }
+        maven { url 'https://maven.aliyun.com/repository/public/' } 
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
+        maven { url 'https://dl.bintray.com/ppartisan/maven/' }
+        maven { url "https://clojars.org/repo/" }
         maven { url "https://jitpack.io" }
+        mavenCentral()
+        google()
+        mavenLocal()
     }
 }
 

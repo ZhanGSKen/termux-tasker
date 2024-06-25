@@ -20,7 +20,7 @@ public class TermuxTaskerApplication extends Application {
 
         // Set log config for the app
         setLogConfig(context, true);
-
+        
         Logger.logDebug("Starting Application");
     }
 

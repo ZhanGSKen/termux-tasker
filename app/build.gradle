@@ -86,6 +86,7 @@ android {
 }
 
 dependencies {
+	api project(':winboll')
     
     testImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.test.ext:junit:1.1.5"
@@ -97,7 +98,11 @@ dependencies {
     implementation "com.google.android.material:material:1.8.0"
     implementation "com.google.guava:guava:24.1-jre"
 
-    implementation "com.termux.termux-app:termux-shared:b800f1cc81"
+    // Termux
+    api 'com.termux:terminal-emulator:0.118.0'
+    api 'com.termux:termux-shared:0.118.0'
+    api 'com.termux:terminal-view:0.118.0'
+    //implementation "com.termux.termux-app:termux-shared:b800f1cc81"
     // Use if below libraries are published locally by termux-app with `./gradlew publishReleasePublicationToMavenLocal` and used with `mavenLocal()`.
     // If updates are done, republish there and sync project with gradle files here
     // https://github.com/termux/termux-app/wiki/Termux-Libraries
