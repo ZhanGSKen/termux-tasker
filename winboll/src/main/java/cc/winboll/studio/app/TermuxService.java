@@ -181,6 +181,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
     public void onDestroy() {
         Logger.logVerbose(LOG_TAG, "onDestroy");
         LogUtils.d(TAG, "onDestroy");
+        WinBollTaskerLogActivity.notifyRunCommandServiceExit();
         
         TermuxShellUtils.clearTermuxTMPDIR(true);
 

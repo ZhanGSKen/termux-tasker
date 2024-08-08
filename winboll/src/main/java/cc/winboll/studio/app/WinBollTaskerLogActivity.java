@@ -21,10 +21,25 @@ import android.widget.Toast;
 import cc.winboll.studio.app.R;
 import cc.winboll.studio.libapputils.LogUtils;
 import cc.winboll.studio.libapputils.views.LogView;
+import android.os.Handler;
+import android.os.Message;
+import android.view.ViewTreeObserver;
+import android.widget.TextView;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.RelativeLayout;
+import android.os.Build;
+import android.content.IntentFilter;
+import android.inputmethodservice.InputMethodService;
+import android.content.BroadcastReceiver;
+import android.widget.LinearLayout;
+import android.view.inputmethod.InputMethodManager;
 
 public class WinBollTaskerLogActivity extends Activity {
 
     public static final String TAG = "WinBollTaskerLogActivity";
+
+    static final int MSG_RUNCOMMANDSERVICE_EXIT = 0;
 
     LogView mLogView;
     MyBindService myBindService;
@@ -32,10 +47,15 @@ public class WinBollTaskerLogActivity extends Activity {
     Button mbtnRunCommand;
     Button mbtnStopCommand;
     Intent mIntent;
+    static WinBollTaskerLogActivity mWinBollTaskerLogActivity;
+    ViewTreeObserver mViewTreeObserver;
+    LinearLayout mLinearLayoutInput;
+    float mLogViewHeight = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mWinBollTaskerLogActivity = this;
         setContentView(R.layout.activity_winbolltaskerlog);
         cc.winboll.studio.libapputils.LogUtils.init(this);
         mLogView = findViewById(R.id.logview);
@@ -68,7 +88,25 @@ public class WinBollTaskerLogActivity extends Activity {
                     }
                 }
             });
+
         setRunCommandStatus(false);
+
+        (new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    while (true) {
+                        if (mLogViewHeight != mLogView.getHeight()) {
+                            mLogViewHeight = mLogView.getHeight();
+                            LogUtils.d(TAG, "LogView Height Change.");
+                        }
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            LogUtils.d(TAG, e, Thread.currentThread().getStackTrace());
+                        }
+                    }
+                }
+            })).start();
     }
 
     void setRunCommandStatus(boolean isRunning) {
@@ -126,5 +164,29 @@ public class WinBollTaskerLogActivity extends Activity {
     //解绑服务
     private void unBindService() {
         unbindService(mConnection);
+    }
+
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_RUNCOMMANDSERVICE_EXIT : {
+                        setRunCommandStatus(false);
+                        break;
+                    }
+                default : {
+                        super.handleMessage(msg);
+                    }
+            }
+        }
+
+    };
+
+    public static void notifyRunCommandServiceExit() {
+        if (mWinBollTaskerLogActivity != null) {
+            Message msg = mWinBollTaskerLogActivity.mHandler.obtainMessage(MSG_RUNCOMMANDSERVICE_EXIT);
+            mWinBollTaskerLogActivity.mHandler.sendMessage(msg);
+        }
     }
 }
