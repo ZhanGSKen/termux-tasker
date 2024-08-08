@@ -97,7 +97,8 @@ public class WinBollTaskerLogActivity extends Activity {
                     while (true) {
                         if (mLogViewHeight != mLogView.getHeight()) {
                             mLogViewHeight = mLogView.getHeight();
-                            LogUtils.d(TAG, "LogView Height Change.");
+                            mLogView.scrollLogUp();
+                            //LogUtils.d(TAG, "LogView Height Change.");
                         }
                         try {
                             Thread.sleep(300);
