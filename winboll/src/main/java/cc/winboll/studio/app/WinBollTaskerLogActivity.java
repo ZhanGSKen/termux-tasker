@@ -64,14 +64,29 @@ public class WinBollTaskerLogActivity extends Activity {
         bindService();
 
         mEditText = findViewById(R.id.activitywinbolltaskerlogEditText1);
+        focusToEditText();
+        mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            参数说明
+//            @param v 被监听的对象
+//            @param actionId  动作标识符,如果值等于EditorInfo.IME_NULL，则回车键被按下。
+//            @param event    如果由输入键触发，这是事件；否则，这是空的(比如非输入键触发是空的)。
+//            @return 返回你的动作
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_SEND) {
+                        handleEnterPress();
+                        return true;
+                    }
+                    return false;
+                }
+            });
 
         mbtnRunCommand = findViewById(R.id.activitywinbolltaskerlogButton1);
         mbtnRunCommand.setOnClickListener(new Button.OnClickListener(){
 
                 @Override
                 public void onClick(View view) {
-                    mIntent = myBindService.runTermuxCommand(mEditText.getText().toString());
-                    setRunCommandStatus(true);
+                    handleEnterPress();
                 }
             });
 
@@ -86,10 +101,13 @@ public class WinBollTaskerLogActivity extends Activity {
                     } else {
                         Toast.makeText(getApplication(), "Stop Termux Command Failed.", Toast.LENGTH_SHORT).show();
                     }
+                    //focusToEditText();
                 }
             });
 
         setRunCommandStatus(false);
+
+
 
         (new Thread(new Runnable(){
                 @Override
@@ -110,10 +128,30 @@ public class WinBollTaskerLogActivity extends Activity {
             })).start();
     }
 
+    private void handleEnterPress() {
+        // 在这里编写你的回车事件处理逻辑
+
+        mIntent = myBindService.runTermuxCommand(mEditText.getText().toString());
+        setRunCommandStatus(true);
+        //focusToEditText();
+        mEditText.setText("");
+    }
+
     void setRunCommandStatus(boolean isRunning) {
-        mEditText.setEnabled(!isRunning);
+        //mEditText.setEnabled(!isRunning);
         mbtnRunCommand.setEnabled(!isRunning);
         mbtnStopCommand.setEnabled(isRunning);
+    }
+
+
+
+    void focusToEditText() {
+        mEditText.postDelayed(new Runnable(){
+                @Override
+                public void run() {
+                    mEditText.requestFocus();
+                }
+            }, 100);
     }
 
     @Override

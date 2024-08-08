@@ -119,7 +119,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
     public void onCreate() {
         cc.winboll.studio.libapputils.LogUtils.init(this);
         Logger.logVerbose(LOG_TAG, "onCreate");
-        LogUtils.d(TAG, "onCreate");
+        //LogUtils.d(TAG, "onCreate");
 
         // Get Termux app SharedProperties without loading from disk since TermuxApplication handles
         // load and TermuxActivity handles reloads
@@ -136,7 +136,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Logger.logDebug(LOG_TAG, "onStartCommand");
-        LogUtils.d(TAG, "onStartCommand");
+        //LogUtils.d(TAG, "onStartCommand");
 
         // Run again in case service is already started and onCreate() is not called
         runStartForeground();
@@ -162,7 +162,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                     actionReleaseWakeLock(true);
                     break;
                 case TERMUX_SERVICE.ACTION_SERVICE_EXECUTE:
-                    LogUtils.d(TAG, "ACTION_SERVICE_EXECUTE");
+                    //LogUtils.d(TAG, "ACTION_SERVICE_EXECUTE");
                     Logger.logDebug(LOG_TAG, "ACTION_SERVICE_EXECUTE intent received");
                     actionServiceExecute(intent);
                     break;
@@ -180,7 +180,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
     @Override
     public void onDestroy() {
         Logger.logVerbose(LOG_TAG, "onDestroy");
-        LogUtils.d(TAG, "onDestroy");
+        //LogUtils.d(TAG, "onDestroy");
         WinBollTaskerLogActivity.notifyRunCommandServiceExit();
         
         TermuxShellUtils.clearTermuxTMPDIR(true);

@@ -10,6 +10,8 @@
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:focusable="false"
+		android:focusableInTouchMode="false"
 		android:layout_above="@+id/activitywinbolltaskerlogLinearLayout2"
 		android:id="@+id/activitywinbolltaskerlogRelativeLayout1"
 		android:layout_alignParentTop="true">
@@ -19,6 +21,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:id="@+id/logview"
+			android:focusable="false"
+			android:focusableInTouchMode="false"
 			android:layout_alignParentTop="true"/>
 
 	</RelativeLayout>
@@ -33,20 +37,30 @@
 		<EditText
 			android:layout_width="0dp"
 			android:ems="10"
-			android:layout_height="wrap_content"
+			android:gravity="top"
+			android:focusable="true"
+			android:focusableInTouchMode="true"
 			android:layout_weight="1.0"
+            android:imeOptions="actionSend"
+            android:singleLine="true"
+			android:layout_height="wrap_content"
+			android:cursorVisible="true"
 			android:id="@+id/activitywinbolltaskerlogEditText1"/>
 
 		<Button
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Run"
+			android:focusable="false"
+			android:focusableInTouchMode="false"
 			android:id="@+id/activitywinbolltaskerlogButton1"/>
 
 		<Button
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Stop"
+			android:focusable="false"
+			android:focusableInTouchMode="false"
 			android:id="@+id/activitywinbolltaskerlogButton2"/>
 
 	</LinearLayout>

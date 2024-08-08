@@ -21,8 +21,7 @@ public class MyBindService extends Service implements ServiceInterface {
     Intent mIntent;
     
     public MyBindService() {
-        LogUtils.d(TAG, "");
-        LogUtils.d(TAG, "MyBindService: ");
+        LogUtils.d(TAG, "MyBindService");
     }
 
     @Override
