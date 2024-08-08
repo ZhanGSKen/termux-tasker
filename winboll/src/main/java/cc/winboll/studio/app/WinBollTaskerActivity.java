@@ -40,9 +40,9 @@ import com.termux.terminal.TerminalSessionClient;
 import com.termux.terminal.TerminalSession;
 import com.termux.shared.activity.ActivityUtils;
 
-public class MainActivity extends Activity {
+public class WinBollTaskerActivity extends Activity {
 
-    public static final String TAG = "MainActivity";
+    public static final String TAG = "WinBollTaskerActivity";
 
     Intent mIntent;
 
@@ -261,13 +261,13 @@ public class MainActivity extends Activity {
         // 应用日志文件监听实例
         LogListener mLogListener;
         // 日志视图弱引用
-        WeakReference<MainActivity> rmainActivity;
+        WeakReference<WinBollTaskerActivity> rmainActivity;
 
         //
         // 构造函数
         // @logView : 日志显示输出视图类
-        public LogViewThread(MainActivity mainActivity) {
-            rmainActivity = new WeakReference<MainActivity>(mainActivity);
+        public LogViewThread(WinBollTaskerActivity mainActivity) {
+            rmainActivity = new WeakReference<WinBollTaskerActivity>(mainActivity);
 
         }
 

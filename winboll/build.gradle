@@ -1,6 +1,9 @@
 apply plugin: 'com.android.library'
 
 android {
+    //namespace 'com.termux.tasker'
+    namespace 'cc.winboll.studio.app'
+    
     compileSdkVersion 32
     buildToolsVersion "33.0.3"
 
