@@ -32,8 +32,8 @@ dependencies {
     api 'com.google.android.material:material:1.0.0'
     */
     //api project(':AES:libaes')
-    api 'cc.winboll.studio:libaes:6.0.8'
-    api 'cc.winboll.studio:libapputils:6.0.2'
+    api 'cc.winboll.studio:libaes:6.3.2'
+    api 'cc.winboll.studio:libapputils:7.6.0'
     
     api 'org.jsoup:jsoup:1.13.1'
     
@@ -63,7 +63,9 @@ dependencies {
     implementation "io.noties.markwon:ext-strikethrough:4.6.2"
     implementation "io.noties.markwon:linkify:4.6.2"
     implementation "io.noties.markwon:recycler:4.6.2"
-    
+    // Bugfix
+    implementation 'androidx.window:window:1.0.0-alpha09'
+
     
     /* AndroidIDE
     implementation("androidx.navigation:navigation-ui:2.5.3")

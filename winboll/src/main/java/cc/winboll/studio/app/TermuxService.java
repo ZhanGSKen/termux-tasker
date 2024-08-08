@@ -56,6 +56,7 @@ import com.termux.terminal.TerminalSessionClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import cc.winboll.studio.libapputils.LogUtils;
 
 /**
  * A service holding a list of {@link TermuxSession} in {@link TermuxShellManager#mTermuxSessions} and background {@link AppShell}
@@ -71,7 +72,9 @@ import java.util.List;
  * {@link #buildNotification()}.
  */
 public final class TermuxService extends Service implements AppShell.AppShellClient, TermuxSession.TermuxSessionClient {
-
+    
+    public static final String TAG = "TermuxService";
+    
     /** This service is only bound from inside the same process and never uses IPC. */
     class LocalBinder extends Binder {
         public final TermuxService service = TermuxService.this;
@@ -114,7 +117,9 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
 
     @Override
     public void onCreate() {
+        cc.winboll.studio.libapputils.LogUtils.init(this);
         Logger.logVerbose(LOG_TAG, "onCreate");
+        LogUtils.d(TAG, "onCreate");
 
         // Get Termux app SharedProperties without loading from disk since TermuxApplication handles
         // load and TermuxActivity handles reloads
@@ -131,6 +136,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Logger.logDebug(LOG_TAG, "onStartCommand");
+        LogUtils.d(TAG, "onStartCommand");
 
         // Run again in case service is already started and onCreate() is not called
         runStartForeground();
@@ -156,6 +162,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
                     actionReleaseWakeLock(true);
                     break;
                 case TERMUX_SERVICE.ACTION_SERVICE_EXECUTE:
+                    LogUtils.d(TAG, "ACTION_SERVICE_EXECUTE");
                     Logger.logDebug(LOG_TAG, "ACTION_SERVICE_EXECUTE intent received");
                     actionServiceExecute(intent);
                     break;
@@ -173,7 +180,8 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
     @Override
     public void onDestroy() {
         Logger.logVerbose(LOG_TAG, "onDestroy");
-
+        LogUtils.d(TAG, "onDestroy");
+        
         TermuxShellUtils.clearTermuxTMPDIR(true);
 
         actionReleaseWakeLock(false);

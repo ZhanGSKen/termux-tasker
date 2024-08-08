@@ -11,5 +11,38 @@
 		android:layout_height="wrap_content"
 		android:text="WinBollTaskerLogActivity"/>
 
+	<cc.winboll.studio.libapputils.views.LogView
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1.0"
+		android:id="@+id/logview"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<EditText
+			android:layout_width="0dp"
+			android:ems="10"
+			android:layout_height="wrap_content"
+			android:layout_weight="1.0"
+			android:id="@+id/activitywinbolltaskerlogEditText1"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Run"
+			android:id="@+id/activitywinbolltaskerlogButton1"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Stop"
+			android:id="@+id/activitywinbolltaskerlogButton2"/>
+
+	</LinearLayout>
+
 </LinearLayout>
 
