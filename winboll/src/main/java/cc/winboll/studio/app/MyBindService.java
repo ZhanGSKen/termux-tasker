@@ -89,7 +89,7 @@ public class MyBindService extends Service implements ServiceInterface {
     @Override
     public Intent runTermuxCommand(String szCmd) {
         LogUtils.d(TAG, "runTermuxCommand: ");
-        /* 
+       
         // 普通调用
         String szTaskLogPath ="/storage/emulated/0/Android/data/com.termux.tasker/cache/LogUtils/log.txt";
         Intent mIntent = new Intent();
@@ -102,7 +102,7 @@ public class MyBindService extends Service implements ServiceInterface {
         mIntent.putExtra("com.termux.RUN_COMMAND_BACKGROUND", "false");
         mIntent.putExtra("com.termux.RUN_COMMAND_SESSION_ACTION", "0");
         startService(mIntent);
-        */
+       
         
         // 调用用 TermuxService
         /*String szTaskLogPath ="/storage/emulated/0/Android/data/com.termux.tasker/cache/LogUtils/log.txt";
@@ -120,7 +120,7 @@ public class MyBindService extends Service implements ServiceInterface {
         startService(mIntent);*/
         
         // 调用cc.winboll.studio.app.RunCommandService
-        String szTaskLogPath ="/storage/emulated/0/Android/data/com.termux.tasker/cache/LogUtils/log.txt";
+        /*String szTaskLogPath ="/storage/emulated/0/Android/data/com.termux.tasker/cache/LogUtils/log.txt";
         Intent mIntent = new Intent();
         mIntent.setClassName(getPackageName(), "cc.winboll.studio.app.RunCommandService");
         mIntent.setAction("com.termux.RUN_COMMAND");
@@ -130,7 +130,7 @@ public class MyBindService extends Service implements ServiceInterface {
         mIntent.putExtra("com.termux.RUN_COMMAND_WORKDIR", "/data/data/com.termux/files/home");
         mIntent.putExtra("com.termux.RUN_COMMAND_BACKGROUND", "false");
         mIntent.putExtra("com.termux.RUN_COMMAND_SESSION_ACTION", "0");
-        startService(mIntent);
+        startService(mIntent);*/
         
         return mIntent;
     }
