@@ -11,35 +11,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import cc.winboll.studio.app.R;
 import cc.winboll.studio.libapputils.LogUtils;
 import cc.winboll.studio.libapputils.views.LogView;
-import android.os.Handler;
-import android.os.Message;
-import android.view.ViewTreeObserver;
-import android.widget.TextView;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.widget.RelativeLayout;
-import android.os.Build;
-import android.content.IntentFilter;
-import android.inputmethodservice.InputMethodService;
-import android.content.BroadcastReceiver;
-import android.widget.LinearLayout;
-import android.view.inputmethod.InputMethodManager;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class WinBollTaskerLogActivity extends Activity {
 
     public static final String TAG = "WinBollTaskerLogActivity";
 
     static final int MSG_RUNCOMMANDSERVICE_EXIT = 0;
+    static final int MSG_UPDATE_TIME = 1;
 
     LogView mLogView;
     MyBindService myBindService;
@@ -51,6 +49,7 @@ public class WinBollTaskerLogActivity extends Activity {
     ViewTreeObserver mViewTreeObserver;
     LinearLayout mLinearLayoutInput;
     float mLogViewHeight = 0;
+    TextView mtvTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +125,42 @@ public class WinBollTaskerLogActivity extends Activity {
                     }
                 }
             })).start();
+
+        // 创建一个TextView用于显示时间
+        mtvTime = findViewById(R.id.activitywinbolltaskerlogTextView1);
+        // 设置定时器，每秒更新一次时间
+
+        // 启动定时任务
+        (new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    while (true) {
+                        Message msg = mHandler.obtainMessage(MSG_UPDATE_TIME);
+                        mHandler.sendMessage(msg);
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            LogUtils.d(TAG, e, Thread.currentThread().getStackTrace());
+                        }
+                    }
+                }
+            })).start();
+        
+    }
+    
+    //
+    // 定义一个更新时间的方法
+    //
+    private void updateTime() {
+        // 获取当前时间戳（毫秒）
+        long currentTime = System.currentTimeMillis();
+
+        // 格式化时间
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS");
+        String formattedTime = sdf.format(new Date(currentTime));
+
+        // 更新TextView的内容
+        mtvTime.setText(formattedTime);
     }
 
     private void handleEnterPress() {
@@ -212,6 +247,10 @@ public class WinBollTaskerLogActivity extends Activity {
             switch (msg.what) {
                 case MSG_RUNCOMMANDSERVICE_EXIT : {
                         setRunCommandStatus(false);
+                        break;
+                    }
+                case MSG_UPDATE_TIME : {
+                        updateTime();
                         break;
                     }
                 default : {
