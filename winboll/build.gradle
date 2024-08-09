@@ -33,7 +33,7 @@ dependencies {
     */
     //api project(':AES:libaes')
     api 'cc.winboll.studio:libaes:6.3.2'
-    api 'cc.winboll.studio:libapputils:8.3.7'
+    api 'cc.winboll.studio:libapputils:8.3.8'
     
     api 'org.jsoup:jsoup:1.13.1'
     
