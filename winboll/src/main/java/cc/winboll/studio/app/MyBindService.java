@@ -97,7 +97,14 @@ public class MyBindService extends Service implements ServiceInterface {
         mIntent.setAction("com.termux.RUN_COMMAND");
         mIntent.putExtra("com.termux.RUN_COMMAND_PATH", "/data/data/com.termux/files/usr/bin/bash");
         mIntent.putExtra("com.termux.RUN_COMMAND_RUNNER", "app-shell");
+        
+        // Tasker 前台台模式，显示真实命令 szCmd + " &>>" + szTaskLogPath。
         mIntent.putExtra("com.termux.RUN_COMMAND_ARGUMENTS", new String[]{"-c", szCmd + " &>>" + szTaskLogPath});
+        // Tasker 后台模式，隐藏真实命令显示 szCmd。
+        //mIntent.putExtra("com.termux.RUN_COMMAND_ARGUMENTS", new String[]{"-c", szCmd + " &>>" + szTaskLogPath + " &"});
+        
+        //mIntent.putExtra("com.termux.RUN_COMMAND_ARGUMENTS", new String[]{"-c", szCmd + " | tee " + szTaskLogPath});
+        //mIntent.putExtra("com.termux.RUN_COMMAND_ARGUMENTS", new String[]{"-c", szCmd + " | tee " + szTaskLogPath + " &"});
         mIntent.putExtra("com.termux.RUN_COMMAND_WORKDIR", "/data/data/com.termux/files/home");
         mIntent.putExtra("com.termux.RUN_COMMAND_BACKGROUND", "false");
         mIntent.putExtra("com.termux.RUN_COMMAND_SESSION_ACTION", "0");
