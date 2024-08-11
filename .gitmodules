@@ -1,3 +1,3 @@
 [submodule "keystore"]
 	path = keystore
-	url = ssh://jian@winboll.cc/rdisk/jian/repository/keystore.git
+	url = ssh://git@git.winboll.cc:222/Studio/keystore.git
